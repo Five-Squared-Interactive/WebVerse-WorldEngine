@@ -89,7 +89,7 @@ namespace FiveSQD.WebVerse.WorldEngine.Entity
             {
                 angularVelocity = rigidBody.angularVelocity,
                 stationary = rigidBody.isKinematic,
-                velocity = rigidBody.velocity
+                velocity = rigidBody.linearVelocity
             };
         }
 
@@ -107,9 +107,9 @@ namespace FiveSQD.WebVerse.WorldEngine.Entity
 
             return new EntityPhysicalProperties
             {
-                angularDrag = rigidBody.angularDrag,
+                angularDrag = rigidBody.angularDamping,
                 centerOfMass = rigidBody.centerOfMass,
-                drag = rigidBody.drag,
+                drag = rigidBody.linearDamping,
                 gravitational = gravitational,
                 mass = rigidBody.mass
             };
@@ -194,7 +194,7 @@ namespace FiveSQD.WebVerse.WorldEngine.Entity
                     rigidBody.isKinematic = true;
                     rigidBody.useGravity = false;
                     rigidBody.angularVelocity = Vector3.zero;
-                    rigidBody.velocity = Vector3.zero;
+                    rigidBody.linearVelocity = Vector3.zero;
                     return true;
                 }
                 else
@@ -211,7 +211,7 @@ namespace FiveSQD.WebVerse.WorldEngine.Entity
 
             if (motionToSet.Value.velocity != null)
             {
-                rigidBody.velocity = motionToSet.Value.velocity;
+                rigidBody.linearVelocity = motionToSet.Value.velocity;
             }
 
             return true;
@@ -238,7 +238,7 @@ namespace FiveSQD.WebVerse.WorldEngine.Entity
 
             if (epp.Value.angularDrag.HasValue)
             {
-                rigidBody.angularDrag = epp.Value.angularDrag.Value;
+                rigidBody.angularDamping = epp.Value.angularDrag.Value;
             }
 
             if (epp.Value.centerOfMass != null)
@@ -248,7 +248,7 @@ namespace FiveSQD.WebVerse.WorldEngine.Entity
 
             if (epp.Value.drag.HasValue)
             {
-                rigidBody.drag = epp.Value.drag.Value;
+                rigidBody.linearDamping = epp.Value.drag.Value;
             }
 
             if (epp.Value.gravitational.HasValue)
